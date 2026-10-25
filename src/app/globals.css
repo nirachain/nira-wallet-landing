@@ -1,0 +1,240 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Tokens are the wallet app's (nira-wallet/src/index.css), dark theme only:
+   the site is a brand surface, like the app's splash and welcome. */
+:root {
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+  --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
+
+  color-scheme: dark;
+  --canvas: 5 8 12;
+  --surface: 13 18 25;
+  --raised: 23 30 40;
+  --line: 36 46 59;
+  --ink: 242 246 247;
+  --mute: 140 151 164;
+  --faint: 90 102 117;
+  --accent: 27 236 138;
+  --on-accent: 3 22 14;
+  --accent-soft: 96 240 172;
+  --accent-alt: 19 89 168;
+  --accent-deep: 18 138 163;
+  --sky: 124 178 240;
+  --up: 52 226 142;
+  --down: 255 94 110;
+  --warn: 247 186 70;
+  --shadow-alpha: 0.55;
+  --press-brightness: 1.12;
+  --on-dark: block;
+  --on-light: none;
+}
+
+@layer base {
+  html {
+    -webkit-tap-highlight-color: transparent;
+    -webkit-text-size-adjust: 100%;
+    background: rgb(var(--canvas));
+    scroll-padding-top: 88px;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+
+  body {
+    background: rgb(var(--canvas));
+    color: rgb(var(--ink));
+    @apply font-sans;
+    font-size: 17px;
+    line-height: 1.55;
+    font-feature-settings: "cv11", "ss01";
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    overflow-x: clip;
+  }
+
+  button,
+  input {
+    @apply appearance-none border-0 bg-transparent outline-none;
+    font: inherit;
+    color: inherit;
+  }
+
+  /* Controls inside the phone demos act like the app: no text selection on drag. */
+  button,
+  [role="button"],
+  [role="slider"],
+  [role="tab"],
+  img {
+    -webkit-user-select: none;
+    user-select: none;
+    -webkit-touch-callout: none;
+  }
+
+  ::selection {
+    background: rgb(var(--accent-deep) / 0.6);
+    color: rgb(var(--ink));
+  }
+
+  :focus-visible {
+    outline: 2px solid rgb(var(--accent-soft));
+    outline-offset: 3px;
+  }
+}
+
+@layer components {
+  .pressable {
+    position: relative;
+    transition:
+      transform 160ms var(--ease-out),
+      background-color 160ms ease,
+      color 160ms ease,
+      opacity 160ms ease,
+      box-shadow 160ms ease;
+  }
+  .pressable:active:not(:disabled) {
+    transform: scale(var(--press, 0.97));
+    transition-duration: 90ms;
+  }
+
+  .brand-fill {
+    background-image: linear-gradient(115deg, #1359a8 0%, #128aa3 48%, #1bec8a 100%);
+  }
+
+  /* Display type: the wide face, tracking tightened as it grows. */
+  .display {
+    @apply font-display;
+    letter-spacing: -0.02em;
+    font-feature-settings: "tnum";
+  }
+
+  /* Page width and gutters: 16px on a phone, wider on larger screens. */
+  .wrap {
+    @apply mx-auto w-full max-w-[1200px] px-4 sm:px-8 lg:px-10;
+  }
+
+  /* Section title: the wide face, set large and tight. */
+  .title {
+    @apply display text-balance font-bold text-ink;
+    font-size: clamp(34px, 5.2vw, 60px);
+    line-height: 1.04;
+    letter-spacing: -0.035em;
+  }
+
+  .lede {
+    @apply text-pretty text-mute;
+    font-size: clamp(17px, 1.4vw, 19px);
+    line-height: 1.6;
+    max-width: 34em;
+  }
+
+  /* A phone's screen surface. Fixed size, so the demos lay out like the app. */
+  .phone {
+    @apply relative overflow-hidden bg-canvas shadow-phone;
+    width: 320px;
+    height: 660px;
+    border-radius: 48px;
+    border: 9px solid #0d1219;
+    outline: 1px solid rgb(255 255 255 / 0.08);
+    outline-offset: -1px;
+  }
+}
+
+@layer utilities {
+  .tabular {
+    font-variant-numeric: tabular-nums;
+  }
+  .text-balance {
+    text-wrap: balance;
+  }
+  .text-pretty {
+    text-wrap: pretty;
+  }
+  .on-dark {
+    display: var(--on-dark);
+  }
+  .on-light {
+    display: var(--on-light);
+  }
+
+  .animate-rise { animation: arrive 240ms var(--ease-out) both; }
+  .animate-pop { animation: pop 220ms var(--ease-out) both; }
+  .animate-shake { animation: shake 360ms var(--ease-out) both; }
+  .animate-fade { animation: fade 200ms var(--ease-out) both; }
+  .animate-ring { animation: ring 2s var(--ease-out) infinite; }
+  .animate-blade-in { animation: blade-in 520ms var(--ease-out) both; }
+  .animate-rack-float { animation: rack-float 4.8s ease-in-out infinite; }
+  .animate-lid-sweep { animation: lid-sweep 4.2s ease-in-out infinite; }
+  .animate-breathe { animation: breathe 1.6s ease-in-out infinite; }
+  .animate-spin-fast { animation: spin 700ms linear infinite; }
+  .animate-draw { stroke-dasharray: 1; stroke-dashoffset: 1; animation: draw 420ms var(--ease-out) 120ms forwards; }
+  .animate-burst { animation: burst 600ms var(--ease-out) 180ms both; }
+  .paused { animation-play-state: paused; }
+}
+
+@keyframes arrive {
+  from { opacity: 0; transform: translateY(8px); }
+}
+@keyframes pop {
+  from { opacity: 0; transform: scale(0.94); }
+}
+@keyframes fade {
+  from { opacity: 0; }
+}
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-8px); }
+  40% { transform: translateX(7px); }
+  60% { transform: translateX(-4px); }
+  80% { transform: translateX(2px); }
+}
+@keyframes ring {
+  from { opacity: 0.55; transform: scale(1); }
+  to { opacity: 0; transform: scale(1.9); }
+}
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+@keyframes draw {
+  to { stroke-dashoffset: 0; }
+}
+@keyframes burst {
+  0% { transform: translateY(0) scale(0.6); opacity: 0; }
+  30% { opacity: 1; }
+  100% { transform: translateY(-80px) scale(1); opacity: 0; }
+}
+@keyframes breathe {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.35; }
+}
+@keyframes blade-in {
+  from { opacity: 0; transform: translateZ(calc(var(--z) + 120px)); }
+}
+@keyframes rack-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+@keyframes lid-sweep {
+  0%, 55% { transform: translateX(-120%) skewX(-12deg); }
+  85%, 100% { transform: translateX(380%) skewX(-12deg); }
+}
+
+/* Fewer and gentler, not none: movement goes, short fades stay. Status
+   lights and spinners opt out with .keep-motion. */
+@media (prefers-reduced-motion: reduce) {
+  *:not(.keep-motion),
+  *:not(.keep-motion)::before,
+  *:not(.keep-motion)::after {
+    animation-name: fade !important;
+    animation-duration: 150ms !important;
+    animation-delay: 0ms !important;
+    animation-iteration-count: 1 !important;
+    transition-property: opacity, color, background-color !important;
+    transition-duration: 150ms !important;
+  }
+}
