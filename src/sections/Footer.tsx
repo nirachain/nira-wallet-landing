@@ -4,7 +4,7 @@ import { DOWNLOAD_URL, NAV } from "@/lib/site";
 export function Footer() {
   return (
     <footer className="relative mt-8 shadow-[inset_0_1px_0_rgb(var(--line)/0.6)]">
-      <div className="wrap grid gap-12 py-14 md:grid-cols-[minmax(0,1fr)_auto]">
+      <div className="wrap grid grid-cols-1 gap-12 py-14 md:grid-cols-[minmax(0,1fr)_auto]">
         <div className="max-w-[420px]">
           <BrandWordmark width={170} />
           <p className="mt-5 text-pretty text-[14px] leading-[1.6] text-mute">

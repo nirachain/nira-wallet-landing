@@ -133,8 +133,8 @@ function PinDemo() {
 export function Security() {
   return (
     <section id="security" aria-labelledby="security-title" className="relative py-20 lg:py-28">
-      <div className="wrap grid gap-14 lg:grid-cols-[minmax(0,420px)_minmax(0,1fr)] lg:gap-20">
-        <div className="flex flex-col gap-10">
+      <div className="wrap grid grid-cols-1 gap-14 lg:grid-cols-[minmax(0,420px)_minmax(0,1fr)] lg:gap-20">
+        <div className="flex flex-col gap-10 md:grid md:grid-cols-2 md:items-center lg:flex">
           <div>
             <h2 id="security-title" className="title">
               Locked to this phone
@@ -144,7 +144,7 @@ export function Security() {
           <PinDemo />
         </div>
 
-        <ul className="grid content-start gap-x-10 gap-y-10 sm:grid-cols-2 lg:pt-3">
+        <ul className="grid grid-cols-1 content-start gap-x-10 gap-y-10 sm:grid-cols-2 lg:pt-3">
           {RULES.map((r) => (
             <li key={r.title} className="flex flex-col gap-4">
               <span className="grid size-12 place-items-center rounded-full bg-surface text-ink ring-1 ring-line" aria-hidden>

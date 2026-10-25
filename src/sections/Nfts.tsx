@@ -8,9 +8,9 @@ import { HoloCard } from "@/components/lazy";
 export function Nfts() {
   return (
     <section id="nfts" aria-labelledby="nfts-title" className="relative py-20 lg:py-28">
-      <div className="wrap grid items-center gap-14 lg:grid-cols-2 lg:gap-20">
-        <div className="order-2 flex justify-center lg:order-1">
-          <div className="h-[380px] sm:h-[440px]">
+      <div className="wrap grid grid-cols-1 items-center gap-14 md:grid-cols-2 md:gap-10 lg:gap-20">
+        <div className="order-2 flex justify-center md:order-1">
+          <div className="flex h-[min(380px,100vw)] w-full max-w-[340px] items-center sm:h-[440px]">
             <HoloCard
               image="/art/genesis.svg"
               overlay
@@ -25,7 +25,7 @@ export function Nfts() {
             />
           </div>
         </div>
-        <div className="order-1 lg:order-2">
+        <div className="order-1 md:order-2">
           <h2 id="nfts-title" className="title">
             Collectibles, in full
           </h2>

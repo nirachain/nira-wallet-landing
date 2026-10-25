@@ -133,6 +133,20 @@
     max-width: 34em;
   }
 
+  /* Large screens: a wider page and larger type, so it does not float in
+     the middle of a 1440p or 4K display. */
+  @media (min-width: 1800px) {
+    .wrap {
+      max-width: 1520px;
+    }
+    .title {
+      font-size: 76px;
+    }
+    .lede {
+      font-size: 21px;
+    }
+  }
+
   /* A phone's screen surface. Fixed size, so the demos lay out like the app. */
   .phone {
     @apply relative overflow-hidden bg-canvas shadow-phone;

@@ -96,8 +96,10 @@ export function TabBar({ active, onChange }: { active: number; onChange?: (i: nu
               d.on = true;
               e.currentTarget.setPointerCapture(e.pointerId);
             }
+            // The phone may be scaled down: map screen px back to the bar's own.
             const box = e.currentTarget.getBoundingClientRect();
-            x.set(Math.min(cell * (TABS.length - 1), Math.max(0, e.clientX - box.left - cell / 2)));
+            const at = (e.clientX - box.left) / (box.width / e.currentTarget.offsetWidth || 1);
+            x.set(Math.min(cell * (TABS.length - 1), Math.max(0, at - cell / 2)));
             const i = under(e.clientX);
             if (i !== local) {
               haptic(5);

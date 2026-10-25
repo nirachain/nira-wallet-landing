@@ -42,9 +42,9 @@ const StepText = ({ step, i, onSeen, children }: { step: Step; i: number; onSeen
     if (middle) onSeen(i);
   }, [middle, i, onSeen]);
   return (
-    <article ref={ref} className="flex flex-col justify-center gap-8 py-12 lg:min-h-[88vh] lg:py-0">
-      <div className="max-w-[520px]">
-        <h3 className="display text-balance text-[clamp(28px,3.4vw,42px)] font-bold leading-[1.08] tracking-[-0.03em]">{step.title}</h3>
+    <article ref={ref} className="flex flex-col justify-center gap-8 py-12 md:flex-row md:items-center md:justify-between md:gap-10 lg:min-h-[88vh] lg:py-0">
+      <div className="max-w-[520px] md:flex-1 min-[1800px]:max-w-[640px]">
+        <h3 className="display text-balance text-[clamp(28px,3.4vw,42px)] min-[1800px]:text-[52px] font-bold leading-[1.08] tracking-[-0.03em]">{step.title}</h3>
         <p className="lede mt-4">{step.text}</p>
         <p className="mt-5 flex items-center gap-2.5 text-[14px] font-semibold text-accent-soft">
           <span aria-hidden className="brand-fill h-1.5 w-6 -skew-x-[30deg] rounded-[2px]" />
@@ -74,7 +74,7 @@ export function Tour() {
         </h2>
         <p className="lede mt-5">This is Nira&apos;s interface, running here with sample data. Tap it, type on it, slide it.</p>
 
-        <div className="mt-6 grid gap-x-16 lg:grid-cols-[minmax(0,1fr)_auto]">
+        <div className="mt-6 grid grid-cols-1 gap-x-16 lg:grid-cols-[minmax(0,1fr)_auto]">
           <div>
             {STEPS.map((step, i) => (
               <StepText key={step.title} step={step} i={i} onSeen={setActive}>
@@ -89,7 +89,8 @@ export function Tour() {
 
           {wide && (
             <div className="relative">
-              <div className="sticky top-[calc(50vh-330px)]">
+              {/* Held in the middle of the screen, shrunk to fit a short one. */}
+              <div className="sticky top-0 flex h-[100svh] flex-col items-center justify-center pt-8">
                 <Phone label={STEPS[active].label}>
                   <AnimatePresence initial={false} mode="popLayout">
                     <motion.div

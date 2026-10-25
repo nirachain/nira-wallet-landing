@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { motion, useMotionValueEvent, useScroll } from "motion/react";
+import { AnimatePresence, motion, useMotionValueEvent, useScroll } from "motion/react";
+import { Menu, X } from "lucide-react";
 import { BrandLockup } from "@/components/wallet/Logo";
 import { DownloadButton } from "@/components/Download";
 import { NAV } from "@/lib/site";
@@ -13,10 +14,11 @@ export function Nav() {
   const { scrollY } = useScroll();
   const [solid, setSolid] = useState(false);
   const [away, setAway] = useState(false);
+  const [open, setOpen] = useState(false);
   useMotionValueEvent(scrollY, "change", (y) => {
     const prev = scrollY.getPrevious() ?? 0;
     setSolid(y > 24);
-    setAway(y > 480 && y > prev + 2 ? true : y < prev - 2 ? false : away);
+    setAway(!open && y > 480 && y > prev + 2 ? true : y < prev - 2 ? false : away);
   });
 
   return (
@@ -28,7 +30,7 @@ export function Nav() {
     >
       <div
         className={`transition-[background-color,box-shadow] duration-300 ${
-          solid ? "bg-canvas/80 shadow-[inset_0_-1px_0_rgb(var(--line)/0.6)] backdrop-blur-xl" : "bg-transparent"
+          solid || open ? "bg-canvas/80 shadow-[inset_0_-1px_0_rgb(var(--line)/0.6)] backdrop-blur-xl" : "bg-transparent"
         }`}
       >
         <nav aria-label="Main" className="wrap flex h-16 items-center justify-between gap-6">
@@ -48,8 +50,42 @@ export function Nav() {
               </li>
             ))}
           </ul>
-          <DownloadButton size="sm" />
+          <div className="flex items-center gap-2">
+            <DownloadButton size="sm" />
+            {/* Phones: the section links live behind this button. */}
+            <button
+              type="button"
+              aria-label={open ? "Close menu" : "Open menu"}
+              aria-expanded={open}
+              aria-controls="mobile-menu"
+              onClick={() => setOpen((o) => !o)}
+              className="pressable grid size-10 place-items-center rounded-full bg-raised text-ink md:hidden"
+            >
+              {open ? <X size={18} /> : <Menu size={18} />}
+            </button>
+          </div>
         </nav>
+        <AnimatePresence initial={false}>
+          {open && (
+            <motion.ul
+              id="mobile-menu"
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: "auto", opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{ duration: 0.28, ease: [0.32, 0.72, 0, 1] }}
+              className="wrap flex flex-col overflow-hidden md:hidden"
+            >
+              {NAV.map((l) => (
+                <li key={l.href}>
+                  <a href={l.href} onClick={() => setOpen(false)} className="display flex h-14 items-center text-[22px] font-bold text-ink shadow-[inset_0_-1px_0_rgb(var(--line)/0.6)]">
+                    {l.label}
+                  </a>
+                </li>
+              ))}
+              <li className="h-4" aria-hidden />
+            </motion.ul>
+          )}
+        </AnimatePresence>
       </div>
     </motion.header>
   );

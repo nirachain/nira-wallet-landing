@@ -39,7 +39,7 @@ export function Hero() {
       id="top"
       ref={ref}
       aria-label="Nira Wallet"
-      className="relative isolate overflow-hidden pt-24 lg:pt-28"
+      className="relative isolate overflow-hidden pt-24 lg:flex lg:min-h-[100svh] lg:flex-col lg:justify-center lg:pt-20"
       onPointerMove={(e) => {
         if (reduce || e.pointerType !== "mouse") return;
         const r = e.currentTarget.getBoundingClientRect();
@@ -75,8 +75,8 @@ export function Hero() {
         <span className="absolute inset-0 bg-[radial-gradient(ellipse_at_20%_35%,rgb(5_8_12/0.92),rgb(5_8_12/0.55)_45%,transparent_75%)]" />
       </motion.div>
 
-      <div className="wrap grid items-center gap-x-12 gap-y-14 pb-20 lg:grid-cols-[minmax(0,1fr)_auto] lg:pb-28">
-        <div className="max-w-[720px]">
+      <div className="wrap grid grid-cols-1 items-center gap-x-12 gap-y-14 pb-20 lg:grid-cols-[minmax(0,1fr)_auto] lg:pb-16">
+        <div className="max-w-[720px] min-[1800px]:max-w-[900px]">
           <motion.div
             initial={{ clipPath: "polygon(-70% 0%, -70% 0%, -100% 100%, -100% 100%)", opacity: 0.4 }}
             animate={{ clipPath: "polygon(-70% 0%, 170% 0%, 200% 100%, -100% 100%)", opacity: 1 }}
@@ -95,7 +95,7 @@ export function Hero() {
             )}
           </motion.div>
 
-          <h1 className="display mt-8 text-[clamp(40px,7.4vw,96px)] font-bold leading-[0.98] tracking-[-0.045em]">
+          <h1 className="display mt-8 text-[clamp(40px,7.4vw,96px)] min-[1800px]:text-[124px] font-bold leading-[0.98] tracking-[-0.045em]">
             {["Nothing moves", "without you."].map((line, i) => (
               <span key={line} className="block overflow-hidden pb-[0.08em]">
                 <motion.span
@@ -126,7 +126,7 @@ export function Hero() {
                 <span aria-hidden className="block h-[2px] w-5 origin-left rounded-full bg-current transition-transform duration-300 ease-out group-hover:scale-x-150" />
               </a>
             </div>
-            <div className="mt-10 flex items-center gap-4">
+            <div className="mt-10 flex flex-wrap items-center gap-x-4 gap-y-3">
               <span className="flex shrink-0 -space-x-2.5">
                 {COINS.map((c, i) => (
                   <motion.img

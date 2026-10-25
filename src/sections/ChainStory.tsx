@@ -28,8 +28,8 @@ const Caption = ({ i, position }: { i: number; position: MotionValue<number> }) 
   const s = STAGES[i];
   return (
     <motion.div className="absolute inset-x-0 top-0" style={{ opacity, y }} aria-hidden>
-      <h3 className="title">{s.title}</h3>
-      <p className="lede mt-5">{s.text}</p>
+      <h3 className="title !text-[clamp(28px,5.2vw,60px)] short:!text-[28px]">{s.title}</h3>
+      <p className="lede mt-3 !text-[15px] sm:mt-5 sm:!text-[17px] lg:!text-[19px] short:!text-[14px]">{s.text}</p>
     </motion.div>
   );
 };
@@ -57,15 +57,15 @@ export function ChainStory() {
   return (
     <section id="story" ref={ref} aria-label="How Nira keeps your wallet" className="relative h-[340vh]">
       <div className="sticky top-0 flex h-[100svh] items-center overflow-hidden">
-        <div className="wrap grid h-full grid-rows-[minmax(0,1.15fr)_auto] items-center gap-4 py-16 lg:grid-cols-2 lg:grid-rows-1 lg:gap-16 lg:py-0">
-          <div className="order-2 lg:order-1">
+        <div className="wrap grid grid-cols-1 h-full grid-rows-[minmax(0,1.15fr)_auto] items-center gap-4 pb-8 pt-20 lg:grid-cols-2 lg:grid-rows-1 lg:gap-16 lg:py-0 short:grid-cols-2 short:grid-rows-1 short:gap-8 short:pb-4 short:pt-16">
+          <div className="order-2 lg:order-1 short:order-1">
             <div role="img" aria-label="Three stages" className="flex w-[148px] gap-1.5">
               {STAGES.map((_, i) => (
                 <Bar key={i} i={i} position={position} />
               ))}
             </div>
             {/* Captions stack in one spot and cross over as the scene moves. */}
-            <div className="relative mt-8 min-h-[230px] sm:min-h-[250px]">
+            <div className="relative mt-5 sm:mt-8 min-h-[190px] sm:min-h-[240px] short:min-h-[170px]">
               {STAGES.map((_, i) => (
                 <Caption key={i} i={i} position={position} />
               ))}
@@ -78,7 +78,7 @@ export function ChainStory() {
               ))}
             </ol>
           </div>
-          <div className="order-1 h-full min-h-0 lg:order-2 lg:h-[min(76svh,680px)]">
+          <div className="order-1 h-full min-h-0 short:order-2 lg:order-2 lg:h-[min(76svh,680px)] min-[1800px]:h-[min(76svh,880px)]">
             <WelcomeScene position={position} />
           </div>
         </div>

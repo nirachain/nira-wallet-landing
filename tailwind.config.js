@@ -7,6 +7,8 @@ module.exports = {
   content: ["./src/**/*.{ts,tsx}"],
   theme: {
     extend: {
+      // Phones on their side: wide but short, so stacked layouts go side by side.
+      screens: { short: { raw: "(max-height: 560px) and (orientation: landscape)" } },
       colors: {
         canvas: token("canvas"),
         surface: token("surface"),
