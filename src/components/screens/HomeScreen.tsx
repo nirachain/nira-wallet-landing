@@ -18,7 +18,7 @@ const TOTAL = ASSETS.reduce((s, a) => s + a.usd, 0);
 
 /** The wallet's Home screen with sample balances: the balance rolls in like
  *  an odometer, prices tick, rows swipe for actions, the tab bar springs. */
-export function HomeScreen({ live = true }: { live?: boolean }) {
+export function HomeScreen({ live = true, bar = true, onSend }: { live?: boolean; bar?: boolean; onSend?: () => void }) {
   const [total, setTotal] = useState(0);
   const [hidden, setHidden] = useState(false);
   const [shown, setShown] = useState(false);
@@ -148,9 +148,14 @@ export function HomeScreen({ live = true }: { live?: boolean }) {
 
       {/* The floating actions, as on Home. */}
       <div className="absolute inset-x-4 bottom-[84px] z-10 flex items-center gap-1 rounded-full bg-surface p-1.5 shadow-float ring-1 ring-line/70">
-        <span className="flex h-11 flex-1 items-center justify-center gap-1.5 rounded-full bg-accent text-[14px] font-bold text-accent-ink">
+        <button
+          type="button"
+          onClick={onSend}
+          style={press(0.96)}
+          className="pressable flex h-11 flex-1 cursor-pointer items-center justify-center gap-1.5 rounded-full bg-accent text-[14px] font-bold text-accent-ink"
+        >
           <ArrowUpRight size={17} aria-hidden /> Send
-        </span>
+        </button>
         <span className="flex h-11 flex-1 items-center justify-center gap-1.5 rounded-full text-[14px] font-bold text-ink">
           <ArrowDownLeft size={17} aria-hidden /> Receive
         </span>
@@ -159,7 +164,7 @@ export function HomeScreen({ live = true }: { live?: boolean }) {
         </span>
       </div>
 
-      <TabBar active={0} />
+      {bar && <TabBar active={0} />}
     </div>
   );
 }

@@ -26,7 +26,7 @@ const Slab = ({ label, side }: { label: string; side: Side }) => (
 
 /** Swap: two slabs that trade places, a route from LI.FI, and the checks
  *  Nira runs before anything is signed. */
-export function SwapScreen() {
+export function SwapScreen({ bar = true }: { bar?: boolean }) {
   const reduce = useReducedMotion();
   const [flipped, setFlipped] = useState(false);
   const [top, bottom] = flipped ? [GET, PAY] : [PAY, GET];
@@ -84,7 +84,7 @@ export function SwapScreen() {
         Review swap
       </Button>
 
-      <TabBar active={1} />
+      {bar && <TabBar active={1} />}
     </div>
   );
 }

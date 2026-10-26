@@ -13,7 +13,7 @@ const EFFECTS = [
 /** A site asks to sign. Nira shows what the simulation says happens to the
  *  wallet, not the raw calldata, and waits for a fingerprint. `active`
  *  raises the sheet, so it plays when the step is reached. */
-export function ApproveScreen({ active = true }: { active?: boolean }) {
+export function ApproveScreen({ active = true, bottom = 0 }: { active?: boolean; bottom?: number }) {
   const reduce = useReducedMotion();
   const [phase, setPhase] = useState<"ask" | "scan" | "done">("ask");
 
@@ -52,6 +52,7 @@ export function ApproveScreen({ active = true }: { active?: boolean }) {
         animate={{ y: active ? 0 : "105%" }}
         transition={reduce ? { duration: 0 } : { type: "spring", stiffness: 300, damping: 34 }}
         className="absolute inset-x-0 bottom-0 rounded-t-[28px] bg-surface px-5 pb-6 pt-3 shadow-sheet"
+        style={{ paddingBottom: 24 + bottom }}
       >
         <span aria-hidden className="mx-auto block h-1 w-9 rounded-full bg-line" />
         {phase === "done" ? (

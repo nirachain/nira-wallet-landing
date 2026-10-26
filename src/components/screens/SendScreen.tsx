@@ -13,7 +13,7 @@ const FEE = 0.41;
 
 /** The Send flow's amount step: the wallet's own keypad, the fee read
  *  before you commit, and a slide to send so a stray tap never pays. */
-export function SendScreen() {
+export function SendScreen({ onBack }: { onBack?: () => void }) {
   const [value, setValue] = useState("0.25");
   const amount = Number(value) || 0;
   const over = amount > BALANCE;
@@ -21,9 +21,9 @@ export function SendScreen() {
   return (
     <div className="flex h-full flex-col px-5 pb-5">
       <header className="relative flex h-12 items-center">
-        <span className="grid size-10 place-items-center rounded-full bg-raised" aria-hidden>
+        <button type="button" onClick={onBack} aria-label="Back" className="pressable grid size-10 cursor-pointer place-items-center rounded-full bg-raised">
           <ChevronLeft size={20} />
-        </span>
+        </button>
         <span className="absolute left-1/2 -translate-x-1/2">
           <Steps current={2} total={3} />
         </span>

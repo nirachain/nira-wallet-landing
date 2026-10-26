@@ -4,11 +4,17 @@
 
 /* Tokens are the wallet app's (nira-wallet/src/index.css), dark theme only:
    the site is a brand surface, like the app's splash and welcome. */
+/* Easing, from the wallet app and Emil Kowalski's curves. */
 :root {
   --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
   --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
   --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
+}
 
+/* The app's two colour schemes. Each section picks one with data-theme;
+   the backdrop behind them crossfades between the two canvases. */
+:root,
+[data-theme="dark"] {
   color-scheme: dark;
   --canvas: 5 8 12;
   --surface: 13 18 25;
@@ -32,6 +38,30 @@
   --on-light: none;
 }
 
+[data-theme="light"] {
+  color-scheme: light;
+  --canvas: 241 244 246;
+  --surface: 255 255 255;
+  --raised: 229 234 238;
+  --line: 213 220 226;
+  --ink: 6 16 28;
+  --mute: 80 92 106;
+  --faint: 136 146 158;
+  --accent: 30 226 134;
+  --on-accent: 3 22 14;
+  --accent-soft: 6 120 76;
+  --accent-alt: 19 89 168;
+  --accent-deep: 12 112 134;
+  --sky: 18 78 168;
+  --up: 4 126 76;
+  --down: 212 38 52;
+  --warn: 172 90 6;
+  --shadow-alpha: 0.14;
+  --press-brightness: 0.95;
+  --on-dark: none;
+  --on-light: block;
+}
+
 @layer base {
   html {
     -webkit-tap-highlight-color: transparent;
@@ -39,14 +69,9 @@
     background: rgb(var(--canvas));
     scroll-padding-top: 88px;
   }
-  @media (prefers-reduced-motion: no-preference) {
-    html {
-      scroll-behavior: smooth;
-    }
-  }
 
   body {
-    background: rgb(var(--canvas));
+    background: transparent;
     color: rgb(var(--ink));
     @apply font-sans;
     font-size: 17px;
@@ -119,11 +144,25 @@
   }
 
   /* Section title: the wide face, set large and tight. */
+  /* Section titles: big, heavy and tight, editorial. */
   .title {
-    @apply display text-balance font-bold text-ink;
-    font-size: clamp(34px, 5.2vw, 60px);
-    line-height: 1.04;
-    letter-spacing: -0.035em;
+    @apply display text-balance font-extrabold text-ink;
+    font-size: clamp(36px, 5.4vw, 76px);
+    line-height: 0.96;
+    letter-spacing: -0.05em;
+  }
+
+  /* The hero headline: the loudest thing on the page. */
+  .headline {
+    @apply display font-extrabold text-ink;
+    font-size: clamp(52px, 8.2vw, 136px);
+    line-height: 0.9;
+    letter-spacing: -0.06em;
+  }
+
+  /* The slab: the logo gradient, cut at the N's diagonal where it is used. */
+  .slab {
+    background-image: linear-gradient(140deg, #1359a8 0%, #128aa3 52%, #1bec8a 100%);
   }
 
   .lede {
@@ -140,7 +179,10 @@
       max-width: 1520px;
     }
     .title {
-      font-size: 76px;
+      font-size: 92px;
+    }
+    .headline {
+      font-size: 160px;
     }
     .lede {
       font-size: 21px;
@@ -149,7 +191,7 @@
 
   /* A phone's screen surface. Fixed size, so the demos lay out like the app. */
   .phone {
-    @apply relative overflow-hidden bg-canvas shadow-phone;
+    @apply relative overflow-hidden bg-canvas text-ink shadow-phone;
     width: 320px;
     height: 660px;
     border-radius: 48px;
@@ -159,7 +201,15 @@
   }
 }
 
+/* The top bar drops its wordmark on the narrowest phones. */
+@media (max-width: 379px) {
+  .nav-word {
+    display: none !important;
+  }
+}
+
 @layer utilities {
+
   .tabular {
     font-variant-numeric: tabular-nums;
   }
@@ -222,6 +272,15 @@
   30% { opacity: 1; }
   100% { transform: translateY(-80px) scale(1); opacity: 0; }
 }
+/* The network ticker. */
+@keyframes marquee {
+  to { transform: translateX(-50%); }
+}
+/* WalletConnect card: the scanner line over the QR. */
+@keyframes qr-scan {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(124px); }
+}
 @keyframes breathe {
   0%, 100% { opacity: 1; }
   50% { opacity: 0.35; }
@@ -251,4 +310,16 @@
     transition-property: opacity, color, background-color !important;
     transition-duration: 150ms !important;
   }
+}
+
+/* Lenis smooth scroll (lenis/dist/lenis.css). */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis:not(.lenis-autoToggle).lenis-stopped {
+  overflow: clip;
+}
+.lenis [data-lenis-prevent] {
+  overscroll-behavior: contain;
 }
