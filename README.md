@@ -1,4 +1,4 @@
-# Nira Wallet landing page
+### Nira Wallet landing page
 
 Marketing site for the Nira wallet. Next.js (App Router, static export), Tailwind 3 and Motion,
 built from the wallet app's own tokens, components and animations.
