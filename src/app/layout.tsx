@@ -24,6 +24,14 @@ export const viewport: Viewport = { themeColor: "#05080C", colorScheme: "dark" }
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" data-theme="dark" suppressHydrationWarning>
+      <head>
+        <script
+          id="bis-skin-cleanup"
+          dangerouslySetInnerHTML={{
+            __html: `(function(){function c(n){if(n&&n.nodeType===1){if(n.hasAttribute('bis_skin_checked'))n.removeAttribute('bis_skin_checked');var els=n.querySelectorAll('[bis_skin_checked]');for(var i=0;i<els.length;i++)els[i].removeAttribute('bis_skin_checked');}}if(typeof document!=='undefined'){c(document.documentElement);var o=new MutationObserver(function(m){for(var i=0;i<m.length;i++){if(m[i].type==='attributes'&&m[i].attributeName==='bis_skin_checked'){m[i].target.removeAttribute('bis_skin_checked');}else if(m[i].type==='childList'){for(var j=0;j<m[i].addedNodes.length;j++)c(m[i].addedNodes[j]);}}});o.observe(document.documentElement,{attributes:true,childList:true,subtree:true,attributeFilter:['bis_skin_checked']});window.addEventListener('DOMContentLoaded',function(){c(document.documentElement);});window.addEventListener('load',function(){setTimeout(function(){o.disconnect();},3000);});}})();`,
+          }}
+        />
+      </head>
       <body suppressHydrationWarning>
         <Providers>{children}</Providers>
       </body>

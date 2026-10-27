@@ -98,7 +98,12 @@ export function Footer() {
               <p className="font-bold">Get it</p>
               <ul className="mt-3 flex flex-col gap-2.5">
                 <li>
-                  <a href={DOWNLOAD_URL} className="text-mute transition-colors duration-150 hover:text-ink">
+                  <a
+                    href={DOWNLOAD_URL}
+                    {...(DOWNLOAD_URL.endsWith(".apk") ? { download: "" } : {})}
+                    rel="noopener noreferrer"
+                    className="text-mute transition-colors duration-150 hover:text-ink"
+                  >
                     Android
                   </a>
                 </li>

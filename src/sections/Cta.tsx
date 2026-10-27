@@ -9,8 +9,10 @@ import { DOWNLOAD_READY, DOWNLOAD_URL } from "@/lib/site";
 /** The close, on the slab: the name gathering out of particles (the app's
  *  About screen) and Get Nira. A QR appears once the download is real. */
 export function Cta() {
+  const isApk = DOWNLOAD_URL.endsWith(".apk");
+
   return (
-    <section aria-labelledby="cta-title" className="px-3 sm:px-5">
+    <section id="download" aria-labelledby="cta-title" className="px-3 sm:px-5">
       <div className="slab relative overflow-hidden rounded-[32px] px-5 py-20 text-white lg:rounded-[44px] lg:py-28">
         <div className="mx-auto flex max-w-[1100px] flex-col items-center text-center">
           <div className="h-[clamp(110px,20vw,230px)] w-full" aria-hidden>
@@ -38,9 +40,15 @@ export function Cta() {
             <DownloadButton tone="light" />
             {DOWNLOAD_READY && (
               <div className="flex items-center gap-4 text-left">
-                <span className="block size-[104px] rounded-[20px] bg-white p-2.5">
+                <a
+                  href={DOWNLOAD_URL}
+                  {...(isApk ? { download: "" } : {})}
+                  rel="noopener noreferrer"
+                  className="block size-[104px] shrink-0 rounded-[20px] bg-white p-2.5 transition-transform hover:scale-105"
+                  title="Download Nira APK"
+                >
                   <BrandQr value={DOWNLOAD_URL} label="QR code to download Nira" />
-                </span>
+                </a>
                 <span className="max-w-[140px] text-[13px] font-semibold leading-snug text-white/85">Or scan with your phone&apos;s camera</span>
               </div>
             )}

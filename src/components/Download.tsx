@@ -18,9 +18,12 @@ export function DownloadButton({
   className?: string;
 }) {
   const big = size === "lg";
+  const isApk = DOWNLOAD_URL.endsWith(".apk");
   return (
     <a
       href={DOWNLOAD_URL}
+      {...(isApk ? { download: "" } : {})}
+      rel="noopener noreferrer"
       style={{ "--press": 0.97 } as CSSProperties}
       className={`pressable group inline-flex shrink-0 items-center justify-center gap-3 rounded-full font-bold ${
         tone === "mint" ? "bg-accent text-accent-ink hover:brightness-110" : "bg-white text-[#06101C]"
